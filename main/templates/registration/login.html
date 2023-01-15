@@ -2,16 +2,16 @@
 
 
 {% block content %}
-    <h1>Авторизация (vasya-promprog)</h1>
+    <h1>Sign in</h1>
     <hr>
 
     <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
+      {% csrf_token %}
 
-        {% for item in form %}
-            <label>{{ item.label }}:</label><br>
-            {{ item }}
-        {% endfor %}
+      {% for item in form %}
+        <label>{{ item.label }}:</label><br>
+        {{ item }}<br>
+      {% endfor %}
 
         <input type="submit" value="Войти">
 
