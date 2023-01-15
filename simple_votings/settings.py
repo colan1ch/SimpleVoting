@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Далее полученное значение подставляется в соответствующую переменную
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'Insert secret key here and uncomment this variable'
+SECRET_KEY = 'o%!f)6r(b1)()(^g3)_rtvvua^wk2nl6u9&ug2tk96new--$0x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,7 +63,9 @@ ROOT_URLCONF = 'simple_votings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'main/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
