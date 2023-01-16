@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,22 @@
     <link rel="stylesheet" href="{% static 'index.css' %}">
     <title>Votico</title>
 </head>
+
 <body>
-    
+    <header>
+        <img src="{% static 'logo.svg' %}">
+        <nav>
+            <a href="">About us</a>
+            <a href="">Votings</a>
+            {% if True %}
+            <a href="">Sign up</a>
+            <a href="">Sign in</a>
+            {% else %}
+            <a href="">Profile</a>
+            <a href="">Log out</a>
+            {% endif %}
+        </nav>
+    </header>
 </body>
+
 </html>

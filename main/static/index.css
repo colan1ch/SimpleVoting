@@ -1,3 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Righteous&display=swap");
+
 body {
     background-color: #1e1e1e;
+    margin: 0;
+}
+
+header {
+    background-color: #292929;
+    height: 69px;
+    display: flex;
+    justify-content: space-between;
+}
+
+header img {
+    display: block;
+    width: 113px;
+    height: 37px;
+    margin-top: 10px;
+    margin-left: 36.91px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: #b1dd40;
+    font-size: 24px;
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+    margin-right: 30px;
 }
