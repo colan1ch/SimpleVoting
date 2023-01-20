@@ -20,6 +20,7 @@ from main import views
 from django.contrib.auth import views as auth_views
 
 from main.views import get_menu_context
+from main import views as main_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +36,5 @@ urlpatterns = [
         ),
         name='login'
     ),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout')
+    path('create_voting/', main_views.create_voting_page, name='create_voting')
 ]

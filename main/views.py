@@ -27,3 +27,6 @@ def time_page(request):
         'menu': get_menu_context()
     }
     return render(request, 'pages/time.html', context)
+
+def create_voting_page(request):
+    return render(request,'create_voting.html',context={'page_css':'create_voting.css'})
