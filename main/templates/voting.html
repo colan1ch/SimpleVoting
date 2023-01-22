@@ -1,43 +1,7 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+{% include 'base/base.html' %}
+
+{% block extra_css %}
   <style type="text/css">
-        @import url("https://fonts.googleapis.com/css2?family=Inter&family=Righteous&display=swap");
-
-        body {
-         background-color: #1e1e1e;
-         margin: 0;
-        }
-
-        header {
-         background-color: #292929;
-         height: 69px;
-         display: flex;
-         justify-content: space-between;
-        }
-
-        header img {
-         display: block;
-         width: 113px;
-         height: 37px;
-         margin-top: 10px;
-         margin-left: 36.91px;
-        }
-
-        nav {
-         display: flex;
-         align-items: center;
-        }
-
-        nav a {
-         color: #b1dd40;
-         font-size: 24px;
-         text-decoration: none;
-         font-family: "Inter", sans-serif;
-         margin-right: 30px;
-        }
 
         #voting {
             position: absolute;
@@ -173,22 +137,10 @@
           box-shadow: 0 0 0 4px #cbd6ee;
 
     </style>
-</head>
+
+{% endblock %}
+{% block content %}
 <body>
-    <header>
-        <img name="logo" source="{% static 'logo.svg' %}">
-        <nav name = "nav">
-            <a name = "About Us" href ="">About us</a>
-            <a name = "Votings" href="">Votings</a>
-            {% if True %}
-            <a name = "Sign In" href="">Sign In</a>
-            <a name = "Sign Up" href ="">Sign Up</a>
-            {% else %}
-            <a name = "Profile" href="">Profile</a>
-            <a name = "Log out" href ="">Log Out</a>
-            {% endif %}
-        </nav>
-    </header>
     <main>
         <div name = "voting" id = "voting">
             <div name = "mainContent" id = "mainContect">
@@ -257,8 +209,10 @@
 
     </footer>
 
+</body>
+{% endblock %}
+{% block extra_js %}
     <script>
 
     </script>
-</body>
-</html>
+{% endblock %}
