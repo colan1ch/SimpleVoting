@@ -1,7 +1,11 @@
-{% include 'base/base.html' %}
+{% include 'base.html' %}
 
 {% block extra_css %}
   <style type="text/css">
+        footer {
+            position:relative;
+            top:550px;
+        }
 
         #voting {
             position: absolute;
@@ -141,7 +145,6 @@
 {% endblock %}
 {% block content %}
 <body>
-    <main>
         <div name = "voting" id = "voting">
             <div name = "mainContent" id = "mainContect">
                 <h3 name = "Tittle" id ="tittleVoting">
@@ -204,7 +207,6 @@
 
             {% endif %}
         </div>
-    </main>
     <footer>
 
     </footer>
