@@ -1,10 +1,7 @@
-{% extends 'base/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block extra_css %}
-<style>
-
-</style>
-{% endblock %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
 
 {% block content %}
     <h1>Sign in</h1>
