@@ -27,3 +27,17 @@ def time_page(request):
         'menu': get_menu_context()
     }
     return render(request, 'pages/time.html', context)
+
+def edit_profile_page(request):
+    context = {
+        'pagename': 'Редактирование профиля',
+        'menu': get_menu_context(),
+        'oldpass': oldpass,
+        'newpass': newpass,
+        'email': email,
+        'name': name,
+        'surname': surname,
+        'login': login
+    }
+    return render(request, 'pages/editprofile.html', context)
+
