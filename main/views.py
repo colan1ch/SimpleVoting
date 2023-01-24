@@ -29,4 +29,9 @@ def time_page(request):
     return render(request, 'pages/time.html', context)
 
 def profile_page(request):
-    return render(request, 'pages/profile.html')
+    return render(request, 'pages/profile.html', {
+        'btn_type': 2,
+        # 0 - Edit
+        # 1 - Follow
+        # 2 - Unfollow
+    })
