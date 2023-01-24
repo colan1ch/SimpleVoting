@@ -27,3 +27,6 @@ def time_page(request):
         'menu': get_menu_context()
     }
     return render(request, 'pages/time.html', context)
+
+def profile_page(request):
+    return render(request, 'pages/profile.html')
