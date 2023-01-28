@@ -36,5 +36,6 @@ urlpatterns = [
         name='login'
     ),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('profile/', views.profile_page, name='profile')
+    path('profile/', views.profile_page, name='profile'),
+    path('profile/<int:id>', views.profile_page_id, name='profileqwe')
 ]

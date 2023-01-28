@@ -1,6 +1,7 @@
 import datetime
 
 from django.shortcuts import render
+from .models import *
 
 
 def get_menu_context():
@@ -30,10 +31,20 @@ def time_page(request):
 
 
 def profile_page(request):
-
+    user = User.objects.filter(id=request.user.id)
     context = {
         'pagename': 'Профиль',
         'menu': get_menu_context(),
-        'username': 'zxc'
+        'user': user
+    }
+    return render(request, 'pages/profile.html', context)
+
+
+def profile_page_id(request, id):
+    user = User.objects.filter(id=id)
+    context = {
+        'pagename': 'Профиль',
+        'menu': get_menu_context(),
+        'user': user
     }
     return render(request, 'pages/profile.html', context)
