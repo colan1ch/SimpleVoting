@@ -1,3 +1,4 @@
+{% load static %}
 {% include 'base.html' %}
 
 {% block extra_css %}
@@ -18,7 +19,7 @@
             background: #3A3A3A;
         }
 
-        #mainContect {
+        #mainContent {
             position: absolute;
             width: 457px;
             height: 496px;
@@ -49,6 +50,8 @@
             background: #292929;
             display:flex;
             flex-direction: row;
+            justify-content: space-around;
+            padding:5px;
         }
 
         #tittleVoting{
@@ -146,75 +149,115 @@
 {% block content %}
 <body>
         <div name = "voting" id = "voting">
-            <div name = "mainContent" id = "mainContect">
-                <h3 name = "Tittle" id ="tittleVoting">
-                    Tittle
-                </h3>
-                <p name = "voteContent" id ="voteText">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat, libero a porttitor facilisis, felis neque elementum tortor, non blandit nibh nisl eget sapien. Donec odio ligula, dignissim nec semper eu, cursus non enim. Donec tortor turpis, lacinia dignissim sagittis sed, ultricies ac turpis. In porttitor mattis mattis. Mauris id elementum ex. Phasellus vel mi est. In ut felis orci. Sed libero erat, cursus et malesuada a, pellentesque id tortor.
-                </p>
-                <div name="options" id = "options">
-                    <div class = "option">
-                      <div>
-                        <input type="radio" id ="Choice1" value ="First" name = "option" class = "radioBtn">
-                        <label for="Choice1" class = "labelRadio">First</label>
-                      </div>
-                      <div>
-                        <progress  max="100" value="0" id = "progressChoice1"> 0% </progress>
-                        <label for="progressChoice1" class = "percent">0%</label>
-                      </div>
-                    </div>
-                    <div class = "option">
-                      <div>
-                        <input type="radio" id ="Choice2" value ="Second" name = "option" class = "radioBtn">
-                        <label for="Choice2" class = "labelRadio">Second</label>
-                      </div>
-                      <div>
-                        <progress max="100" value="0" id = "progressChoice2"> 0% </progress>
-                        <label for="progressChoice2" class = "percent">0%</label>
-                      </div>
-                    </div>
-                    <div class = "option">
-                      <div>
-                        <input type="radio" id ="Choice3" value ="Third" name = "option" class = "radioBtn">
-                        <label for="Choice3" class = "labelRadio">Third</label>
-                      </div>
-                      <div>
-                        <progress  max="100" value="0" id = "progressChoice3"> 0% </progress>
-                        <label for="progressChoice3" class = "percent">0%</label>
-                      </div>
-                    </div>
-                    <div class = "option">
-                      <div>
-                        <input type="radio" id ="Choice4" value ="Fourth" name = "option" class = "radioBtn">
-                        <label for="Choice4" class = "labelRadio">Fourth</label>
-                      </div>
-                      <div>
-                        <progress  max="100" value="0"  id = "progressChoice4"> 0% </progress>
-                        <label for="progressChoice4" class = "percent">0%</label>
-                      </div>
-                    </div>
-                </div>
-                <btn class = "buttonSubmitVote">Submit</btn>
+            <div name = "mainContent" id = "mainContent">
+
             </div>
             <div name = "rating" id = "rating">
-                <img source ="" name = "Comment">
-                <img source ="" name = "Like">
-                <img source ="" name = "Repost">
+                <img src ="{% static 'comment.svg' %}" name = "Comment">
+                <img src="{% static 'like.svg' %}" name = "Like">
+                <img src ="{% static 'repost.svg' %}" name = "Repost">
             </div>
             <input name = "comment" type = "text" placeholder="Insert your comment here..." id ="boxComment">
-            {% if True %}
-
-            {% endif %}
         </div>
-    <footer>
-
-    </footer>
-
 </body>
 {% endblock %}
 {% block extra_js %}
     <script>
+        var voting = new Object();
+        voting["tittle"] = "Tittle";
+        voting["text"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat, libero a porttitor facilisis, felis neque elementum tortor, non blandit nibh nisl eget sapien. Donec odio ligula, dignissim nec semper eu, cursus non enim. Donec tortor turpis, lacinia dignissim sagittis sed, ultricies ac turpis. In porttitor mattis mattis. Mauris id elementum ex. Phasellus vel mi est. In ut felis orci. Sed libero erat, cursus et malesuada a, pellentesque id tortor."
+        voting["type"] = 1
+        voting["options"] = [
+          {
+            "text":"First",
+          },
+          {
+            "text":"Second",
+          },
+          {
+            "text":"Third",
+          },
+          {
+            "text":"Fourth",
+          },
+        ];
+
+        var types = ["radio","checkbox"]
+
+        var tittle = document.createElement("h3");
+        tittle.id = "tittleVoting";
+        var tittleText = document.createTextNode(voting["tittle"]);
+        tittle.appendChild(tittleText);
+
+        var voteText = document.createElement("p");
+        voteText.id = "voteText";
+        voteText.name = "voteText";
+        var voteTextContent = document.createTextNode(voting["text"]);
+        voteText.appendChild(voteTextContent);
+
+        document.getElementById("mainContent").appendChild(tittle);
+        document.getElementById("mainContent").appendChild(voteText);
+
+        var options = document.createElement("div");
+        options.id = "options";
+
+
+        for (let i = 0; i < voting["options"].length;i++){
+            var option = document.createElement("div");
+            option.classList.add('option');
+
+
+            var optionDiv = document.createElement("div");
+
+            var radioBtn = document.createElement("input");
+            radioBtn.type = types[voting['type']-1];
+            radioBtn.id = "Choice" + String(i+1);
+            radioBtn.setAttribute('value', voting["options"][i]);
+            radioBtn.setAttribute('name', 'options');
+            radioBtn.classList.add('radioBtn');
+
+            var labelForRadio = document.createElement("label");
+            var voteTextContent = document.createTextNode(voting["options"][i]);
+            labelForRadio.setAttribute('for', radioBtn.id);
+            labelForRadio.classList.add('labelRadio');
+            labelForRadio.appendChild(voteTextContent);
+
+            optionDiv.appendChild(radioBtn);
+            optionDiv.appendChild(labelForRadio);
+
+
+            var progressDiv = document.createElement("div");
+
+            var progressBar = document.createElement("progress");
+            progressBar.setAttribute('max', "100");
+            progressBar.setAttribute('value', "0");
+            progressBar.id = "progressChoice" + String(i+1);
+
+            var progressLabel = document.createElement("label");
+            var progressLabelContent = document.createTextNode("0%");
+            progressBar.setAttribute('for', progressBar.Id);
+            progressLabel.classList.add('percent');
+            progressLabel.appendChild(progressLabelContent);
+
+            progressDiv.appendChild(progressBar);
+            progressDiv.appendChild(progressLabel);
+
+            option.appendChild(optionDiv);
+            option.appendChild(progressDiv);
+
+            options.appendChild(option)
+        }
+
+        console.log(options)
+        document.getElementById("mainContent").appendChild(options);
+
+        var btnSubmit = document.createElement("button");
+        btnSubmit.classList.add("buttonSubmitVote")
+        var btnSubmitContent = document.createTextNode("Submit");
+        btnSubmit.append(btnSubmitContent);
+
+        document.getElementById("mainContent").appendChild(btnSubmit);
+
 
     </script>
 {% endblock %}
