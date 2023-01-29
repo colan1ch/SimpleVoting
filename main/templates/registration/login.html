@@ -4,10 +4,13 @@
 <link rel="stylesheet" href="{% static 'login.css' %}">
 
 {% block content %}
+  <body>
     <h1>Sign in</h1>
+    <h3>If you don't have an account</h3>
+    <h3>You can <b><a>Register here!</a></b></h3>
     <hr>
 
-    <form action="{% url 'login' %}" method="POST">
+    <form action="{% url 'login' %} " method="POST">
       {% csrf_token %}
 
       {% for item in form %}
@@ -17,7 +20,8 @@
 
         <input type="submit" value="Войти">
 
-    </form>
+      </form>
+    </body>
 
     {% if form.errors %}
         {{ form.errors }}
