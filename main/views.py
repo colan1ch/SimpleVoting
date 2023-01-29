@@ -32,10 +32,11 @@ def time_page(request):
 
 def create_voting_page(request):
     if request.method == 'POST':
-        f = Voting(request.POST)
-        title = f.title
-        text = f.text
-        type = f.type
-        options = f.options
-        user = f.user
+        f = Voting()
+        f.title = request.POST["title"]
+        f.text = request.POST["text"]
+        f.type = request.POST["type"]
+        f.options = request.POST["options"]
+        f.user = request.user
+        f.save()
     return render(request, 'create_voting.html', context={'page_css': 'create_voting.css'})
