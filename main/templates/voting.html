@@ -142,7 +142,26 @@
         .buttonSubmitVote:focus {
           outline: none;
           box-shadow: 0 0 0 4px #cbd6ee;
+        }
 
+        .comment{
+          position: relative;
+          width: 457px;
+          height: 44px;
+          left: 25px;
+          top: 700px;
+          margin-top:10px;
+          background: #292929;
+          border-radius: 11px;
+          display:flex;
+          flex-direction:row;
+          justify-content: space-around;
+          padding:5px;
+        }
+
+        #rateComment{
+            margin-top:15px;
+        }
     </style>
 
 {% endblock %}
@@ -153,11 +172,21 @@
 
             </div>
             <div name = "rating" id = "rating">
-                <img src ="{% static 'comment.svg' %}" name = "Comment">
-                <img src="{% static 'like.svg' %}" name = "Like">
-                <img src ="{% static 'repost.svg' %}" name = "Repost">
+                <input type="image" src="{% static 'comment.svg' %}" name = "comment" onclick="commentFunc();">
+                <input type="image" src="{% static 'like.svg' %}" name = "like">
+                <input type="image" src="{% static 'repost.svg' %}" name = "repost">
+
             </div>
             <input name = "comment" type = "text" placeholder="Insert your comment here..." id ="boxComment">
+            <div class="comment">
+                <img src="{% static 'avatar.svg' %}" name ="avatar">
+                <p name = "nameUser">Test-user</p>
+                <p name ="commentContent">Both looks super cool!!!</p>
+                <div name ="rateComment" id ="rateComment">
+                  <input type="image" src="{% static 'likeComment.svg' %}" name = "likeComment" onclick="">
+                  <input type="image" src="{% static 'reportComment.svg' %}" name = "reportComment" onclick="">
+                </div>
+            </div>
         </div>
 </body>
 {% endblock %}
@@ -258,6 +287,9 @@
 
         document.getElementById("mainContent").appendChild(btnSubmit);
 
+        function commentFunc(){
+          alert("You button was pressed");
+        };
 
     </script>
 {% endblock %}
