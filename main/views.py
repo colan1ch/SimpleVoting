@@ -31,7 +31,7 @@ def time_page(request):
 
 
 def profile_page(request):
-    user = User.objects.filter(id=request.user.id)
+    user = Profile.user.objects.filter(id=request.user.id)
     context = {
         'pagename': 'Профиль',
         'menu': get_menu_context(),
@@ -41,7 +41,7 @@ def profile_page(request):
 
 
 def profile_page_id(request, id):
-    user = User.objects.filter(id=id)
+    user = Profile.user.objects.filter(id=request.user.id)
     context = {
         'pagename': 'Профиль',
         'menu': get_menu_context(),
