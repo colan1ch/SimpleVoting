@@ -1,6 +1,6 @@
 from django import forms
 
-class RegisterForm(forms.Form):
+class RegisterPage(forms.Form):
     login = forms.CharField(label='Your login')
     first_name = forms.CharField(label='Your first_name')
     last_name = forms.CharField(label='Your last_name')

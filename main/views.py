@@ -28,16 +28,20 @@ def time_page(request):
     }
     return render(request, 'pages/time.html', context)
 
-def register_page(request):
-    context = {
-        'pagename': 'Регистрация',
-        'login': 'Введите логин',
-        'email' : 'Введите email',
-        'first_name': 'Введите имя',
-        'last_name': 'Введите фамилию',
-        'password' : 'Введите пароль',
-        'password_again': 'Повторите пароль',
-    }
-    return render(request, 'pages/register.html', context)
+class Registration(User):
+    form_class = RegisterPage
+    template_name = 'templates/register.html'
+    
+    def register_page(request):
+        context = {
+            'pagename': 'Регистрация',
+            'login': 'Введите логин',
+            'email' : 'Введите email',
+            'first_name': 'Введите имя',
+            'last_name': 'Введите фамилию',
+            'password' : 'Введите пароль',
+            'password_again': 'Повторите пароль',
+        }
+        return render(request, 'pages/register.html', context)
 
 
