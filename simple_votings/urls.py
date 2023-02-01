@@ -20,7 +20,6 @@ from main import views
 from django.contrib.auth import views as auth_views
 
 from main.views import get_menu_context
-from main.views import edit_voting_page
 
 
 urlpatterns = [
