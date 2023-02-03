@@ -36,7 +36,6 @@ class LoginUser(LoginView):
 
     def get_context_data(self, **kwargs):
         context = {
-            'page_css': 'login.css',
             'form': self.get_form(),
         }
         return context
