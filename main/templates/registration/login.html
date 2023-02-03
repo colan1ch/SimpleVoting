@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
 
 {% block content %}
 <body>
@@ -39,7 +41,13 @@
           {{ form.password }}
         </div>
       </div>
-
+      <div class="errors">
+        <ul>
+        {% for i in form.non_field_errors %}
+          <li>{{i}}</li>
+        {% endfor %}
+        </ul>
+      </div>
       <div class="flex-container">
         <input type="submit" value="Login">
       </div>
@@ -47,9 +55,4 @@
   </div>
 </div>
 </body>
-
-{% if form.errors %}
-{{ form.errors }}
-{% endif %}
-
 {% endblock %}

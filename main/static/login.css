@@ -12,6 +12,9 @@ svg{
     margin-top: 7px;
     margin-right: 5px;
 }
+.errors{
+    color: red;
+}
 h1{
   font-size: 100px;
   font-family: 'Righteous', cursive;

@@ -27,7 +27,7 @@ urlpatterns = [
     path('time/', views.time_page, name='time'),
     path(
         'login/',
-        auth_views.LoginUser.as_view(),
+        views.LoginUser.as_view(),
         name='login'
     ),
     path('logout/', auth_views.LogoutView.as_view(), name='logout')
