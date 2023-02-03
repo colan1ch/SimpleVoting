@@ -1,14 +1,55 @@
-html {
-    height: 100%;
+.flex-container{
+    display: flex;
+    justify-content: center;
 }
-
-body {
+.container{
+    color: #b1dd40;
+    align-items: center;
+    width: 350px;
+    height: auto;
+}
+svg{
+    margin-top: 7px;
+    margin-right: 5px;
+}
+h1{
+  font-size: 100px;
+  font-family: 'Righteous', cursive;
+}
+a {
+  text-decoration: none;
+}
+.container p{
+    color: white;
+}
+.container a{
+    color: #b1dd40;
+}
+input{
+  height: 25px;
+}
+input[type=text],input[type=password] {
+    border: none;
+    border-bottom: 2px solid #b1dd40;
     background-color: #1e1e1e;
-    color: #bbb;
-    margin: auto;
-    min-height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    font-family: "Inter", sans-serif;
+    width: 100%;
 }
-
+input::placeholder, textarea::placeholder{
+    color: #b1dd40;
+}
+input[type=text],input[type=password], textarea{
+    color: #b1dd40;
+}
+input[type=submit]{
+    height: 50px;
+    width: 200px;
+    background-color: #b1dd40;
+    border-radius: 10px;
+    border: none;
+}
+label{
+    color: white;
+}
+div{
+    margin-bottom: 20px;
+}

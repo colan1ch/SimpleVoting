@@ -1,7 +1,7 @@
 import datetime
 
 from django.shortcuts import render
-
+from .forms import *
 
 def get_menu_context():
     return [
@@ -27,3 +27,10 @@ def time_page(request):
         'menu': get_menu_context()
     }
     return render(request, 'pages/time.html', context)
+
+def login_page(request):
+    context = {
+        'page_css': 'login.css',
+        'form': LoginPage
+    }
+    return render(request, 'registration/login.html', context)
