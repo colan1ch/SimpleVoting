@@ -36,5 +36,5 @@ urlpatterns = [
         name='login'
     ),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('registration/', views.register_page, name='registration')
+    path('registration/', views.RegisterUser.as_view(), name='registration')
 ]

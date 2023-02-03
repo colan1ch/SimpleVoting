@@ -33,18 +33,18 @@ def time_page(request):
     }
     return render(request, 'pages/time.html', context)
 
-class Registration(User):
-    form_class = RegisterPage
-    template_name = 'templates/register.html'
-    
-    def register_page(request):
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'registration/registration.html'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):  # делаем наполнение
         context = {
-            'pagename': 'Регистрация',
-            'login': 'Введите логин',
-            'email' : 'Введите email',
-            'first_name': 'Введите имя',
-            'last_name': 'Введите фамилию',
-            'password' : 'Введите пароль',
-            'password_again': 'Повторите пароль',
+            'form': self.get_form(),
         }
-        return render(request, 'pages/register.html', context)
+        return context
+
+    def form_valid(self, form):  # логиним если всё нормально
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
