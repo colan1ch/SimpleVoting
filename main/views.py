@@ -1,6 +1,8 @@
 import datetime
 
 from django.shortcuts import render
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from .forms import *
 
 def get_menu_context():
@@ -13,7 +15,7 @@ def get_menu_context():
 def index_page(request):
     context = {
         'pagename': 'Главная',
-        'author': 'Andrew',
+            'author': 'Andrew',
         'pages': 4,
         'menu': get_menu_context()
     }
@@ -28,9 +30,16 @@ def time_page(request):
     }
     return render(request, 'pages/time.html', context)
 
-def login_page(request):
-    context = {
-        'page_css': 'login.css',
-        'form': LoginPage
-    }
-    return render(request, 'registration/login.html', context)
+class LoginUser(LoginView):
+    form_class = LoginPage
+    template_name = 'template/login.html'
+
+    def get_context_data(self, **kwargs):
+        context = {
+            'menu': get_menu_context(),
+            'form': self.get_form(),
+        }
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
