@@ -20,6 +20,8 @@ from main import views
 from django.contrib.auth import views as auth_views
 
 from main.views import get_menu_context
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,4 +41,4 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.profile_page, name='profile'),
     path('profile/<int:id>', views.profile_page_id, name='profileqwe')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

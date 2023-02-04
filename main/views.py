@@ -30,20 +30,23 @@ def time_page(request):
     return render(request, 'pages/time.html', context)
 
 def profile_page(request):
-    user = Profile.user.objects.filter(id=request.user.id)
+    profile = Profile.objects.get(user=request.user)
     context = {
         'pagename': 'Профиль',
         'menu': get_menu_context(),
-        'user': user
+        'profile': profile,
+        'can_change': True
     }
     return render(request, 'pages/profile.html', context)
 
 
 def profile_page_id(request, id):
-    user = Profile.user.objects.filter(id=request.user.id)
+    profile = Profile.objects.get(user=User.objects.get(id=id))
+    print()
     context = {
         'pagename': 'Профиль',
         'menu': get_menu_context(),
-        'user': user,
+        'profile': profile,
+        'can_change': request.user == profile.user
     }
     return render(request, 'pages/profile.html', context)
