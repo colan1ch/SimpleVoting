@@ -9,7 +9,7 @@ from .forms import *
 import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 def get_menu_context():
@@ -17,6 +17,7 @@ def get_menu_context():
         {'url_name': 'index', 'name': 'Главная'},
         {'url_name': 'time', 'name': 'Текущее время'},
     ]
+
 
 def check_type(op):
     if op == 1 or op == 2:
@@ -34,6 +35,7 @@ def check_list_param(param):
             return False
     return True
 
+
 def check_param(param):
     blacklist = ['{', '}', '[', ']']
     param = param.split()
@@ -45,10 +47,11 @@ def check_param(param):
             return False
     return True
 
+
 def index_page(request):
     context = {
         'pagename': 'Главная',
-            'author': 'Andrew',
+        'author': 'Andrew',
         'pages': 4,
         'menu': get_menu_context()
     }
@@ -62,6 +65,7 @@ def time_page(request):
         'menu': get_menu_context()
     }
     return render(request, 'pages/time.html', context)
+
 
 class RegisterUser(CreateView):
     form_class = RegisterUserForm
@@ -84,6 +88,7 @@ class RegisterUser(CreateView):
         login(self.request, user)
         return redirect('index')
 
+
 class LoginUser(LoginView):
     form_class = LoginPage
     template_name = 'registration/login.html'
@@ -97,9 +102,11 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('index')
 
+
 def logoutUser(request):
     logout(request)
     return redirect('index')
+
 
 def profile_page(request):
     profile = Profile.objects.get(user=request.user)
@@ -122,11 +129,13 @@ def profile_page_id(request, id):
     }
     return render(request, 'pages/profile.html', context)
 
+
 def votings_page(request):
     context = {
-        'votings' : Voting.objects.all()
+        'votings': Voting.objects.all()
     }
-    return render(request,'votings.html',context)
+    return render(request, 'votings.html', context)
+
 
 @login_required(login_url='/login/')
 def create_voting_page(request):
@@ -144,3 +153,53 @@ def create_voting_page(request):
         else:
             messages.add_message(request, messages.ERROR, "Some errors")
     return render(request, 'create_voting.html')
+
+
+def voting_page(request,id):
+    voting = Voting.objects.get(id=id)
+    vote = Vote.objects.filter(voting=voting)
+    comments = Comment.objects.filter(voting=voting)
+    print(voting)
+    options = json.loads(voting.options)
+    print(vote)
+    print(comments)
+    content = {}
+    for i in range(1,len(options)+1):
+        print(Vote.objects.filter(voting=voting,option=i).count())
+        print(Vote.objects.filter(voting=voting).count())
+        content[i]= int(Vote.objects.filter(voting=voting,option=i).count()/Vote.objects.filter(voting=voting).count()*100)
+    print(content)
+    context = {
+        'voting': voting,
+        'options': options,
+        'content': content,
+        'comments': comments
+        }
+    return render(request, 'voting.html', context)
+
+@login_required(login_url='/login/')
+def add_comment(request,id):
+    if request.method == 'POST':
+        voting = get_object_or_404(Voting, id=id)
+        comment = Comment()
+        comment.text = request.POST['comment']
+        comment.user = request.user
+        comment.voting = voting
+        comment.save()
+    return redirect(f'/voting/{id}')
+
+@login_required(login_url='/login/')
+def add_vote(request,id):
+    if request.method == 'POST':
+        voting = get_object_or_404(Voting, id=id)
+        options = json.loads(voting.options)
+        can_vote = not bool(Vote.objects.filter(voting=voting,user=request.user).count())
+        if can_vote and len(request.POST) > 1:
+            params = list(set(dict(request.POST)['option']))
+            if voting.type == 1:
+                params = params[:1]
+            for i in params:
+                if int(i) in list(range(1, len(options) + 1)):
+                    vote = Vote(option=int(i), user=request.user, voting=voting)
+                    vote.save()
+    return redirect(f'/voting/{id}')
