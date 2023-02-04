@@ -63,7 +63,9 @@ ROOT_URLCONF = 'simple_votings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'main/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,6 +75,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media'
             ],
+            'libraries': {
+                'index': 'main.templatetags.index',
+            }
         },
     },
 ]

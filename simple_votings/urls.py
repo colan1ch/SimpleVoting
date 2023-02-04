@@ -33,5 +33,8 @@ urlpatterns = [
     path('profile/', views.profile_page, name='profile'),
     path('profile/<int:id>', views.profile_page_id),
     path('votings/', views.votings_page, name='votings'),
+    path('voting/<int:id>', views.voting_page, name='voting'),
+    path('add_vote/<int:id>', views.add_vote, name='add_vote'),
+    path('add_comment/<int:id>', views.add_comment, name='add_comment'),
     path('create_voting/', main_views.create_voting_page, name='create_voting')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
