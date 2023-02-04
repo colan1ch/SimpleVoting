@@ -47,6 +47,10 @@ class RegisterUser(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        profile = Profile()
+        profile.bio = ''
+        profile.user = user
+        profile.logo_image = None
         login(self.request, user)
         return redirect('index')
 
