@@ -27,12 +27,7 @@ urlpatterns = [
     path('time/', views.time_page, name='time'),
     path(
         'login/',
-        auth_views.LoginView.as_view(
-            extra_context={
-                'menu': get_menu_context(),
-                'pagename': 'Авторизация'
-            }
-        ),
+        views.LoginUser.as_view(),
         name='login'
     ),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

@@ -13,3 +13,8 @@ class RegisterUserForm(UserCreationForm):  # класс формы регист�
     class Meta:
         model = get_user_model()  # привязываем форму к модели
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')  # указываем нужные нам поля
+
+
+class LoginPage(AuthenticationForm):
+    username = forms.CharField(label='Login', widget=forms.TextInput(attrs={'placeholder':'Enter your login'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder':'Enter your password'}))
