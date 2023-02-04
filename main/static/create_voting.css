@@ -30,6 +30,9 @@ input[type=text], textarea{
 label{
     color: white;
 }
+.error{
+    color: red;
+}
 .btn{
     height: 20px;
     width: 105px;
