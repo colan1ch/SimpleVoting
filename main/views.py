@@ -42,7 +42,6 @@ def profile_page(request):
 
 def profile_page_id(request, id):
     profile = Profile.objects.get(user=User.objects.get(id=id))
-    print()
     context = {
         'pagename': 'Профиль',
         'menu': get_menu_context(),
