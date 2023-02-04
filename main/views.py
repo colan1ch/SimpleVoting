@@ -140,7 +140,7 @@ def create_voting_page(request):
             voting = Voting(title=title, text=text, type=op, options=options, user=request.user)
             voting.save()
             messages.add_message(request, messages.SUCCESS, "Create successfully")
-            return redirect(f'voting/{voting.id}')
+            return redirect(f'/voting/{voting.id}')
         else:
             messages.add_message(request, messages.ERROR, "Some errors")
-    return render(request, 'create_voting.html', context={'page_css': 'create_voting.css'})
+    return render(request, 'create_voting.html')
