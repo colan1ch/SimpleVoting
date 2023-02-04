@@ -2,25 +2,24 @@
 {% include 'base.html' %}
 
 {% block extra_css %}
+  {% load static %}
   <style type="text/css">
         footer {
             position:relative;
-            top:550px;
+            top:1250px;
         }
 
         #voting {
-            position: absolute;
             display:flex;
             flex-direction: column;
-            width: 506px;
-            height: 891px;
-            left: 692px;
-            top: 133px;
+            min-width: 506px;
+            min-height: 891px;
+            margin: auto;
             background: #3A3A3A;
         }
 
         #mainContent {
-            position: absolute;
+            position: relative;
             width: 457px;
             height: 496px;
             left: 25px;
@@ -31,22 +30,22 @@
         }
 
         #boxComment{
-            position: absolute;
+            position: relative;
             width: 457px;
             height: 65px;
             left: 25px;
-            top: 610px;
+            top: 30px;
             background: #292929;
             border-radius: 11px;
             color: #FFFFFF;
         }
 
         #rating{
-            position: absolute;
-            width: 457px;
+            position: relative;
+            max-width: 457px;
             height: 52px;
             left: 25px;
-            top: 540px;
+            top: 25px;
             background: #292929;
             display:flex;
             flex-direction: row;
@@ -149,7 +148,7 @@
           width: 457px;
           height: 44px;
           left: 25px;
-          top: 700px;
+          top: 30px;
           margin-top:10px;
           background: #292929;
           border-radius: 11px;
@@ -158,12 +157,12 @@
           padding:5px;
         }
 
-        #rateComment{
+        .rateComment{
             margin-top:15px;
             margin-left:160px;
         }
 
-        #commentText{
+        .commentText{
           width: 153px;
           height: 17px;
 
@@ -176,7 +175,7 @@
           color: #FFFFFF;
         }
 
-        #commentUserName{
+        .commentUserName{
           width: 46px;
           height: 12px;
           font-family: 'Righteous';
@@ -188,176 +187,211 @@
           margin:10px;
           margin-top:15px;
         }
+
+        .commentButton{
+           background: url("{% static 'comment.svg' %}") no-repeat;
+           background-size:100%;
+           border:none;
+           width:50px;
+           height:50px;
+        }
     </style>
 
 {% endblock %}
 {% block content %}
-<body>
+
         <div name = "voting" id = "voting">
             <div name = "mainContent" id = "mainContent">
-
-            </div>
-            <div name = "rating" id = "rating">
-                <input type="image" src="{% static 'comment.svg' %}" name = "comment" onclick="commentFunc();">
-                <input type="image" src="{% static 'like.svg' %}" name = "like">
-                <input type="image" src="{% static 'repost.svg' %}" name = "repost">
-
-            </div>
+              <h3 name = "Tittle" id ="tittleVoting">
+                  {{ voting.tittle }}
+                </h3>
+                <p name = "voteContent" id ="voteText">
+                  {{ voting.text}}
+                </p>
+              <form action ="" method="post">
+                <div name="options" id = "options">
+                      {% for option in voting.options.values %}
+                        <div class = "option">
+                          <div>
+                            <input type="radio"  value ="First" name = "option" class = "radioBtn">
+                            <label  class = "labelRadio">{{ option.text }}</label>
+                          </div>
+                          <div>
+                            <progress  max="100" value="{{ option.value }}" >  </progress>
+                            <label  class = "percent"> {{ option.value }}%</label>
+                          </div>
+                        </div>
+                      {% endfor %}
+                  </div>
+                  <input class = "buttonSubmitVote" type ="submit" value ="Submit">
+                </div>
+              </form>
+            <form action="" method="post">
+              <div name = "rating" id = "rating">
+                  <input type="submit"  class="commentButton" name = "comment" onclick="" value ="">
+                  <img  src="{% static 'like.svg' %}" name = "like">
+                  <img  src="{% static 'repost.svg' %}" name = "repost">
+              </div>
             <input name = "comment" type = "text" placeholder="Insert your comment here..." id ="boxComment">
+          </form>
+          {% for comment in voting.comments.values %}
             <div class="comment">
                 <img src="{% static 'avatar.svg' %}" name ="avatar">
-                <p name = "nameUser" id ="commentUserName">Test-user</p>
-                <p name ="commentContent" id ="commentText">Both looks super cool!!!</p>
-                <div name ="rateComment" id ="rateComment">
+                <p name = "nameUser" class ="commentUserName">{{comment.username}}</p>
+                <p name ="commentContent" class ="commentText">{{comment.text}}</p>
+                <div name ="rateComment" class ="rateComment">
                   <input type="image" src="{% static 'likeComment.svg' %}" name = "likeComment" onclick="">
                   <input type="image" src="{% static 'reportComment.svg' %}" name = "reportComment" onclick="">
                 </div>
             </div>
+          {% endfor %}
         </div>
-</body>
+
 {% endblock %}
 {% block extra_js %}
     {% load static %}
 
-    <script>
-        var voting = new Object();
-        voting["tittle"] = "Tittle";
-        voting["text"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat, libero a porttitor facilisis, felis neque elementum tortor, non blandit nibh nisl eget sapien. Donec odio ligula, dignissim nec semper eu, cursus non enim. Donec tortor turpis, lacinia dignissim sagittis sed, ultricies ac turpis. In porttitor mattis mattis. Mauris id elementum ex. Phasellus vel mi est. In ut felis orci. Sed libero erat, cursus et malesuada a, pellentesque id tortor."
-        voting["type"] = 1
-        voting["options"] = [
-          {
-            "text":"First",
-          },
-          {
-            "text":"Second",
-          },
-          {
-            "text":"Third",
-          },
-          {
-            "text":"Fourth",
-          },
-        ];
+<!--    <script>-->
+<!--        var voting = new Object();-->
+<!--        voting["tittle"] = "Tittle";-->
+<!--        voting["text"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat, libero a porttitor facilisis, felis neque elementum tortor, non blandit nibh nisl eget sapien. Donec odio ligula, dignissim nec semper eu, cursus non enim. Donec tortor turpis, lacinia dignissim sagittis sed, ultricies ac turpis. In porttitor mattis mattis. Mauris id elementum ex. Phasellus vel mi est. In ut felis orci. Sed libero erat, cursus et malesuada a, pellentesque id tortor."-->
+<!--        voting["type"] = 1-->
+<!--        voting["options"] = [-->
+<!--          {-->
+<!--            "text":"First",-->
+<!--          },-->
+<!--          {-->
+<!--            "text":"Second",-->
+<!--          },-->
+<!--          {-->
+<!--            "text":"Third",-->
+<!--          },-->
+<!--          {-->
+<!--            "text":"Fourth",-->
+<!--          },-->
+<!--        ];-->
 
-        var types = ["radio","checkbox"]
+<!--        var types = ["radio","checkbox"]-->
 
-        var tittle = document.createElement("h3");
-        tittle.id = "tittleVoting";
-        var tittleText = document.createTextNode(voting["tittle"]);
-        tittle.appendChild(tittleText);
+<!--        var tittle = document.createElement("h3");-->
+<!--        tittle.id = "tittleVoting";-->
+<!--        var tittleText = document.createTextNode(voting["tittle"]);-->
+<!--        tittle.appendChild(tittleText);-->
 
-        var voteText = document.createElement("p");
-        voteText.id = "voteText";
-        voteText.name = "voteText";
-        var voteTextContent = document.createTextNode(voting["text"]);
-        voteText.appendChild(voteTextContent);
+<!--        var voteText = document.createElement("p");-->
+<!--        voteText.id = "voteText";-->
+<!--        voteText.name = "voteText";-->
+<!--        var voteTextContent = document.createTextNode(voting["text"]);-->
+<!--        voteText.appendChild(voteTextContent);-->
 
-        document.getElementById("mainContent").appendChild(tittle);
-        document.getElementById("mainContent").appendChild(voteText);
+<!--        document.getElementById("mainContent").appendChild(tittle);-->
+<!--        document.getElementById("mainContent").appendChild(voteText);-->
 
-        var options = document.createElement("div");
-        options.id = "options";
-
-
-        for (let i = 0; i < voting["options"].length;i++){
-            var option = document.createElement("div");
-            option.classList.add('option');
+<!--        var options = document.createElement("div");-->
+<!--        options.id = "options";-->
 
 
-            var optionDiv = document.createElement("div");
-
-            var radioBtn = document.createElement("input");
-            radioBtn.type = types[voting['type']-1];
-            radioBtn.id = "Choice" + String(i+1);
-            radioBtn.setAttribute('value', voting["options"][i]);
-            radioBtn.setAttribute('name', 'options');
-            radioBtn.classList.add('radioBtn');
-
-            var labelForRadio = document.createElement("label");
-            var voteTextContent = document.createTextNode(voting["options"][i]);
-            labelForRadio.setAttribute('for', radioBtn.id);
-            labelForRadio.classList.add('labelRadio');
-            labelForRadio.appendChild(voteTextContent);
-
-            optionDiv.appendChild(radioBtn);
-            optionDiv.appendChild(labelForRadio);
+<!--        for (let i = 0; i < voting["options"].length;i++){-->
+<!--            var option = document.createElement("div");-->
+<!--            option.classList.add('option');-->
 
 
-            var progressDiv = document.createElement("div");
+<!--            var optionDiv = document.createElement("div");-->
 
-            var progressBar = document.createElement("progress");
-            progressBar.setAttribute('max', "100");
-            progressBar.setAttribute('value', "0");
-            progressBar.id = "progressChoice" + String(i+1);
+<!--            var radioBtn = document.createElement("input");-->
+<!--            radioBtn.type = types[voting['type']-1];-->
+<!--            radioBtn.id = "Choice" + String(i+1);-->
+<!--            radioBtn.setAttribute('value', voting["options"][i]);-->
+<!--            radioBtn.setAttribute('name', 'options');-->
+<!--            radioBtn.classList.add('radioBtn');-->
 
-            var progressLabel = document.createElement("label");
-            var progressLabelContent = document.createTextNode("0%");
-            progressBar.setAttribute('for', progressBar.Id);
-            progressLabel.classList.add('percent');
-            progressLabel.appendChild(progressLabelContent);
+<!--            var labelForRadio = document.createElement("label");-->
+<!--            var voteTextContent = document.createTextNode(voting["options"][i]);-->
+<!--            labelForRadio.setAttribute('for', radioBtn.id);-->
+<!--            labelForRadio.classList.add('labelRadio');-->
+<!--            labelForRadio.appendChild(voteTextContent);-->
 
-            progressDiv.appendChild(progressBar);
-            progressDiv.appendChild(progressLabel);
+<!--            optionDiv.appendChild(radioBtn);-->
+<!--            optionDiv.appendChild(labelForRadio);-->
 
-            option.appendChild(optionDiv);
-            option.appendChild(progressDiv);
 
-            options.appendChild(option)
-        }
+<!--            var progressDiv = document.createElement("div");-->
 
-        console.log(options)
-        document.getElementById("mainContent").appendChild(options);
+<!--            var progressBar = document.createElement("progress");-->
+<!--            progressBar.setAttribute('max', "100");-->
+<!--            progressBar.setAttribute('value', "0");-->
+<!--            progressBar.id = "progressChoice" + String(i+1);-->
 
-        var btnSubmit = document.createElement("button");
-        btnSubmit.classList.add("buttonSubmitVote")
-        var btnSubmitContent = document.createTextNode("Submit");
-        btnSubmit.append(btnSubmitContent);
+<!--            var progressLabel = document.createElement("label");-->
+<!--            var progressLabelContent = document.createTextNode("0%");-->
+<!--            progressBar.setAttribute('for', progressBar.Id);-->
+<!--            progressLabel.classList.add('percent');-->
+<!--            progressLabel.appendChild(progressLabelContent);-->
 
-        document.getElementById("mainContent").appendChild(btnSubmit);
+<!--            progressDiv.appendChild(progressBar);-->
+<!--            progressDiv.appendChild(progressLabel);-->
 
-        function commentFunc(){
-            var comment = document.createElement("div");
-            comment.classList.add("comment");
-            var avatarCommentUser = document.createElement("img");
-            avatarCommentUser.setAttribute('src',"{% static 'avatar.svg' %}");
-            comment.appendChild(avatarCommentUser);
-            var username = document.createElement("p");
-            username.id = commentUserName;
-            var usernameText = document.createTextNode("Test-user");
-            username.appendChild(usernameText);
-            var commentText = document.createElement("p");
-            var commentTextContent =document.createTextNode(document.getElementById("boxComment").value)
-            commentText.appendChild(commentTextContent)
-            comment.appendChild(commentText)
+<!--            option.appendChild(optionDiv);-->
+<!--            option.appendChild(progressDiv);-->
 
-            var rateComment = document.createElement("div")
-            rateComment.id = rateComment
-            var likeComment = document.createElement("input")
-            likeComment.setAttribute("type","image")
-            likeComment.setAttribute("src","{% static 'likeComment.svg' %}")
-            likeComment.setAttribute("onclick","")
-            var reportComment = document.createElement("input")
-            reportComment.setAttribute("type","image")
-            reportComment.setAttribute("src","{% static 'reportComment.svg' %}")
-            reportComment.setAttribute("onclick","")
+<!--            options.appendChild(option)-->
+<!--        }-->
 
-            rateComment.appendChild(likeComment)
-            rateComment.appendChild(reportComment)
+<!--        console.log(options)-->
+<!--        document.getElementById("mainContent").appendChild(options);-->
 
-            comment.appendChild(rateComment)
+<!--        var btnSubmit = document.createElement("button");-->
+<!--        btnSubmit.classList.add("buttonSubmitVote")-->
+<!--        var btnSubmitContent = document.createTextNode("Submit");-->
+<!--        btnSubmit.append(btnSubmitContent);-->
 
-            document.getElementById("voting").appendChild(comment)
+<!--        document.getElementById("mainContent").appendChild(btnSubmit);-->
 
-            delete comment;
-            delete rateComment;
-            delete avatarCommentUser;
-            delete username;
-            delete usernameText;
-            delete commentText;
-            deleteCommentTextContent;
-            delete likeComment;
-            delete reportComment;
-        };
+<!--        function commentFunc(){-->
+<!--            var comment = document.createElement("div");-->
+<!--            comment.classList.add("comment");-->
+<!--            var avatarCommentUser = document.createElement("img");-->
+<!--            avatarCommentUser.setAttribute('src',"{% static 'avatar.svg' %}");-->
+<!--            comment.appendChild(avatarCommentUser);-->
+<!--            var username = document.createElement("p");-->
+<!--            username.id = "commentUserName";-->
+<!--            var usernameText = document.createTextNode("Test-user");-->
+<!--            username.appendChild(usernameText);-->
+<!--            var commentText = document.createElement("p");-->
+<!--            var commentTextContent =document.createTextNode(document.getElementById("boxComment").value)-->
+<!--            commentText.id = "commentText"-->
+<!--            commentText.appendChild(commentTextContent)-->
+<!--            comment.appendChild(username)-->
+<!--            comment.appendChild(commentText)-->
 
-    </script>
+<!--            var rateComment = document.createElement("div")-->
+<!--            rateComment.id = "rateComment"-->
+<!--            var likeComment = document.createElement("input")-->
+<!--            likeComment.setAttribute("type","image")-->
+<!--            likeComment.setAttribute("src","{% static 'likeComment.svg' %}")-->
+<!--            likeComment.setAttribute("onclick","")-->
+<!--            var reportComment = document.createElement("input")-->
+<!--            reportComment.setAttribute("type","image")-->
+<!--            reportComment.setAttribute("src","{% static 'reportComment.svg' %}")-->
+<!--            reportComment.setAttribute("onclick","")-->
+
+<!--            rateComment.appendChild(likeComment)-->
+<!--            rateComment.appendChild(reportComment)-->
+
+<!--            comment.appendChild(rateComment)-->
+
+<!--            document.getElementById("voting").appendChild(comment)-->
+
+<!--            delete comment;-->
+<!--            delete rateComment;-->
+<!--            delete avatarCommentUser;-->
+<!--            delete username;-->
+<!--            delete usernameText;-->
+<!--            delete commentText;-->
+<!--            delete CommentTextContent;-->
+<!--            delete likeComment;-->
+<!--            delete reportComment;-->
+<!--        };-->
+
+<!--    </script>-->
 {% endblock %}
