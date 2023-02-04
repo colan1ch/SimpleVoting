@@ -159,16 +159,13 @@ def voting_page(request,id):
     voting = Voting.objects.get(id=id)
     vote = Vote.objects.filter(voting=voting)
     comments = Comment.objects.filter(voting=voting)
-    print(voting)
     options = json.loads(voting.options)
-    print(vote)
-    print(comments)
     content = {}
     for i in range(1,len(options)+1):
-        print(Vote.objects.filter(voting=voting,option=i).count())
-        print(Vote.objects.filter(voting=voting).count())
-        content[i]= int(Vote.objects.filter(voting=voting,option=i).count()/Vote.objects.filter(voting=voting).count()*100)
-    print(content)
+        if Vote.objects.filter(voting=voting).count() != 0:
+            content[i]= int(Vote.objects.filter(voting=voting,option=i).count()/Vote.objects.filter(voting=voting).count()*100)
+        else:
+            content[i] = 0
     context = {
         'voting': voting,
         'options': options,
@@ -179,13 +176,14 @@ def voting_page(request,id):
 
 @login_required(login_url='/login/')
 def add_comment(request,id):
-    if request.method == 'POST':
-        voting = get_object_or_404(Voting, id=id)
-        comment = Comment()
-        comment.text = request.POST['comment']
-        comment.user = request.user
-        comment.voting = voting
-        comment.save()
+    if request.method == 'POST' and len(request.POST)>1:
+        if request.POST['comment'].strip()!='':
+            voting = get_object_or_404(Voting, id=id)
+            comment = Comment()
+            comment.text = request.POST['comment'].strip()
+            comment.user = request.user
+            comment.voting = voting
+            comment.save()
     return redirect(f'/voting/{id}')
 
 @login_required(login_url='/login/')
