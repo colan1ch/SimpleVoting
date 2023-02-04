@@ -21,9 +21,6 @@ input[type=text],textarea {
 .option input[type=text]{
     width: 50%;
 }
-input::placeholder, textarea::placeholder{
-    color: #b1dd40;
-}
 input[type=text], textarea{
     color: #b1dd40;
 }
