@@ -21,6 +21,7 @@ from main import views
 from main.views import get_menu_context
 from django.conf import settings
 from django.conf.urls.static import static
+from main import views as main_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +32,6 @@ urlpatterns = [
     path('registration/', views.RegisterUser.as_view(), name='registration'),
     path('profile/', views.profile_page, name='profile'),
     path('profile/<int:id>', views.profile_page_id),
-    path('votings/', views.votings_page, name='votings')
+    path('votings/', views.votings_page, name='votings'),
+    path('create_voting/', main_views.create_voting_page, name='create_voting')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

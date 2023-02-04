@@ -1,13 +1,16 @@
 import datetime
 from django.contrib.auth import login, logout
 from django.http import Http404
-from django.shortcuts import render, redirect
 from django.views.generic import CreateView
-from django.shortcuts import render
 from .models import *
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import *
+import json
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
 
 def get_menu_context():
     return [
@@ -15,6 +18,32 @@ def get_menu_context():
         {'url_name': 'time', 'name': 'Текущее время'},
     ]
 
+def check_type(op):
+    if op == 1 or op == 2:
+        return True
+    else:
+        return False
+
+
+def check_list_param(param):
+    if len(param) < 2:
+        return False
+    for i in param:
+        print(i)
+        if not check_param(i):
+            return False
+    return True
+
+def check_param(param):
+    blacklist = ['{', '}', '[', ']']
+    param = param.split()
+    param = ''.join(param)
+    if len(param) == 0:
+        return False
+    for i in blacklist:
+        if i in param:
+            return False
+    return True
 
 def index_page(request):
     context = {
@@ -98,3 +127,20 @@ def votings_page(request):
         'votings' : Voting.objects.all()
     }
     return render(request,'votings.html',context)
+
+@login_required(login_url='/login/')
+def create_voting_page(request):
+    if request.method == 'POST':
+        params = dict(request.POST)
+        title = params['title'][0].strip()
+        text = params['text'][0].strip()
+        op = int(params['type'][0])
+        options = json.dumps(params['options'])
+        if check_param(title) and check_param(text) and check_list_param(params['options']) and check_type(op):
+            voting = Voting(title=title, text=text, type=op, options=options, user=request.user)
+            voting.save()
+            messages.add_message(request, messages.SUCCESS, "Create successfully")
+            return redirect(f'voting/{voting.id}')
+        else:
+            messages.add_message(request, messages.ERROR, "Some errors")
+    return render(request, 'create_voting.html', context={'page_css': 'create_voting.css'})
