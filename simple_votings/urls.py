@@ -30,5 +30,6 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     path('registration/', views.RegisterUser.as_view(), name='registration'),
     path('profile/', views.profile_page, name='profile'),
-    path('profile/<int:id>', views.profile_page_id)
+    path('profile/<int:id>', views.profile_page_id),
+    path('votings/', views.votings_page, name='votings')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

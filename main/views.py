@@ -92,3 +92,9 @@ def profile_page_id(request, id):
         'can_change': request.user == profile.user
     }
     return render(request, 'pages/profile.html', context)
+
+def votings_page(request):
+    context = {
+        'votings' : Voting.objects.all()
+    }
+    return render(request,'votings.html',context)
