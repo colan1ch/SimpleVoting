@@ -1,7 +1,7 @@
 import datetime
 
 from django.shortcuts import render
-
+from .models import *
 
 def get_menu_context():
     return [
@@ -27,3 +27,9 @@ def time_page(request):
         'menu': get_menu_context()
     }
     return render(request, 'pages/time.html', context)
+
+def votings_page(request):
+    context = {
+        'votings' : Voting.objects.all()
+    }
+    return render(request,'votings.html',context)
