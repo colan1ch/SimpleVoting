@@ -112,6 +112,7 @@ textarea{
     max-width: 230px;
     min-width: 230px;
     min-height: 150px;
+    max-height: 150px;
 }
 input[type=submit]{
     height: 75px;

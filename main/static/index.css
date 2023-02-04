@@ -60,9 +60,9 @@ footer nav a {
 
 footer nav {
     justify-content: center;
-    width: 351px;
+    width: 370px;
     position: absolute;
-    left: calc((100% - 351px) / 2);
+    left: calc((100% - 370px) / 2);
 }
 
 footer div {
