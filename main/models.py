@@ -1,13 +1,28 @@
+<<<<<<< HEAD
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+=======
+>>>>>>> feature/profile/page
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 
-
 class User(AbstractUser):  # переделываем стандартный класс User
     is_moderator = models.BooleanField(default=False)  # для дальнейшей реализации системы жалоб
 
+<<<<<<< HEAD
+=======
+def user_directory_path(instance,filename):
+    return 'users/user_{0}/{1}'.format(instance.user.id, 'logo'+filename[filename.find('.'):])
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE)
+    bio = models.CharField(max_length=100)
+    logo_image = models.ImageField(upload_to=user_directory_path, null=True)
+
+
+>>>>>>> feature/profile/page
 class Voting(models.Model):
     title = models.CharField(max_length=100)
     text = models.CharField(max_length=300)
@@ -26,4 +41,7 @@ class Vote(models.Model):  # при многовыборочном голосо�
     option = models.SmallIntegerField()  # индекс ответа в json массиве
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
     voting = models.ForeignKey(to=Voting, on_delete=models.CASCADE)
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature/profile/page

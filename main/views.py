@@ -1,10 +1,10 @@
 import datetime
-
 from django.contrib.auth import login, logout
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
-
+from django.shortcuts import render
+from .models import *
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import *
@@ -67,5 +67,23 @@ def logoutUser(request):
     logout(request)
     return redirect('index')
 
-def profile(request):
-    raise Http404('No page (')
+def profile_page(request):
+    profile = Profile.objects.get(user=request.user)
+    context = {
+        'pagename': 'Профиль',
+        'menu': get_menu_context(),
+        'profile': profile,
+        'can_change': True
+    }
+    return render(request, 'pages/profile.html', context)
+
+
+def profile_page_id(request, id):
+    profile = Profile.objects.get(user=User.objects.get(id=id))
+    context = {
+        'pagename': 'Профиль',
+        'menu': get_menu_context(),
+        'profile': profile,
+        'can_change': request.user == profile.user
+    }
+    return render(request, 'pages/profile.html', context)

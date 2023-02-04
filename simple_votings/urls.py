@@ -18,13 +18,17 @@ from django.urls import path
 
 from main import views
 
+from main.views import get_menu_context
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
     path('time/', views.time_page, name='time'),
     path('login/',views.LoginUser.as_view(), name='login'),
-    path('profile/',views.profile, name='profile'),
     path('logout/', views.logoutUser, name='logout'),
-    path('registration/', views.RegisterUser.as_view(), name='registration')
-]
+    path('registration/', views.RegisterUser.as_view(), name='registration'),
+    path('profile/', views.profile_page, name='profile'),
+    path('profile/<int:id>', views.profile_page_id, name='profileqwe')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
