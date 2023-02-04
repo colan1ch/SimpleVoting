@@ -174,30 +174,36 @@ def voting_page(request,id):
         }
     return render(request, 'voting.html', context)
 
-@login_required(login_url='/login/')
 def add_comment(request,id):
-    if request.method == 'POST' and len(request.POST)>1:
-        if request.POST['comment'].strip()!='':
-            voting = get_object_or_404(Voting, id=id)
-            comment = Comment()
-            comment.text = request.POST['comment'].strip()
-            comment.user = request.user
-            comment.voting = voting
-            comment.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST' and len(request.POST)>1:
+            if request.POST['comment'].strip()!='':
+                voting = get_object_or_404(Voting, id=id)
+                comment = Comment()
+                comment.text = request.POST['comment'].strip()
+                comment.user = request.user
+                comment.voting = voting
+                comment.save()
+    else:
+        messages.add_message(request, messages.ERROR, "You must be logged in")
     return redirect(f'/voting/{id}')
 
-@login_required(login_url='/login/')
 def add_vote(request,id):
-    if request.method == 'POST':
-        voting = get_object_or_404(Voting, id=id)
-        options = json.loads(voting.options)
-        can_vote = not bool(Vote.objects.filter(voting=voting,user=request.user).count())
-        if can_vote and len(request.POST) > 1:
-            params = list(set(dict(request.POST)['option']))
-            if voting.type == 1:
-                params = params[:1]
-            for i in params:
-                if int(i) in list(range(1, len(options) + 1)):
-                    vote = Vote(option=int(i), user=request.user, voting=voting)
-                    vote.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            voting = get_object_or_404(Voting, id=id)
+            options = json.loads(voting.options)
+            can_vote = not bool(Vote.objects.filter(voting=voting,user=request.user).count())
+            if can_vote and len(request.POST) > 1:
+                params = list(set(dict(request.POST)['option']))
+                if voting.type == 1:
+                    params = params[:1]
+                for i in params:
+                    if int(i) in list(range(1, len(options) + 1)):
+                        vote = Vote(option=int(i), user=request.user, voting=voting)
+                        vote.save()
+            else:
+                messages.add_message(request, messages.ERROR, "You cannot vote multiple times")
+    else:
+        messages.add_message(request, messages.ERROR, "You must be logged in")
     return redirect(f'/voting/{id}')

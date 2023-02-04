@@ -41,10 +41,31 @@
     text-decoration: none;
     color: black;
   }
+  .btn2{
+    width: 150px;
+    height: 35px;
+    background-color: #B1DD40;
+    border: 1px solid #B1DD40;
+    border-radius: 20px;
+    text-align: center;
+    padding-top:10px;
+    margin-left: 20px;
+    margin-top:50px;
+    transition: 0.2s
+  }
+  .btn2:hover{
+    background-color: #1e1e1e;
+  }
+  .btn2:hover a{
+    color:#B1DD40;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
+  <div class="btn2">
+    <a href="{% url 'create_voting'%}">Create your voting</a>
+  </div>
   <div>
     {% for voting in votings%}
     {% if forloop.counter|add:"3"|divisibleby:4%}

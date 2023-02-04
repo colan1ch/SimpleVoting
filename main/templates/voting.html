@@ -9,7 +9,12 @@
             position:relative;
             top:1250px;
         }
-
+        .success{
+            color: #B1DD40;
+        }
+        .error{
+            color: red;
+        }
         #voting {
             display:flex;
             flex-direction: column;
@@ -226,6 +231,16 @@
                       {% endfor %}
                   </div>
                   <input class = "buttonSubmitVote" type ="submit" value ="Submit">
+                {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+                </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
                 </div>
               </form>
             <form action="/add_comment/{{voting.id}}" method="post">
