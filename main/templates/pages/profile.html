@@ -7,7 +7,7 @@
     <p class="name">{{profile.user.first_name}} {{profile.user.last_name}}</p>
 
     {% if can_change %}
-    <button>Edit</button>
+    <button><a href="">Edit</a></button>
     {% endif %}
 
     <p class="about">{{profile.bio}}</p>
@@ -16,6 +16,10 @@
 </div>
 
 <style>
+    a{
+      text-decoration: none;
+      color: white;
+    }
     .usercard {
         width: 500px;
         /* height: 800px; */
@@ -33,8 +37,7 @@
         height: 200px;
         margin: auto;
         border-radius: 50%;
-        border: 1px solid black;
-        background-image: url("{{profile.logo_image.url}}");
+        background-image: url("{% if profile.logo_image.url is not None%}{{profile.logo_image.url}}{% else %}/media/users/default.png{% endif %}");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;

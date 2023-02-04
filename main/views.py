@@ -51,6 +51,7 @@ class RegisterUser(CreateView):
         profile.bio = ''
         profile.user = user
         profile.logo_image = None
+        profile.save()
         login(self.request, user)
         return redirect('index')
 
