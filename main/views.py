@@ -1,11 +1,10 @@
 import datetime
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from django.http import Http404
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import *
@@ -64,3 +63,9 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('index')
 
+def logoutUser(request):
+    logout(request)
+    return redirect('index')
+
+def profile(request):
+    raise Http404('No page (')

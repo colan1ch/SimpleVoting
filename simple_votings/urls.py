@@ -17,19 +17,14 @@ from django.contrib import admin
 from django.urls import path
 
 from main import views
-from django.contrib.auth import views as auth_views
 
-from main.views import get_menu_context
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
     path('time/', views.time_page, name='time'),
-    path(
-        'login/',
-        views.LoginUser.as_view(),
-        name='login'
-    ),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('login/',views.LoginUser.as_view(), name='login'),
+    path('profile/',views.profile, name='profile'),
+    path('logout/', views.logoutUser, name='logout'),
     path('registration/', views.RegisterUser.as_view(), name='registration')
 ]
