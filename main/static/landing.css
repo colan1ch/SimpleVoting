@@ -1,0 +1,124 @@
+main{
+    height: 2600px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+section{
+    height: 33%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    color: #B1DD40;
+    font-size: 100px;
+    font-family: "Righteous", sans-serif;
+}
+.text-top{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: top;
+    margin-top: -60px;
+}
+.text-bottom{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    align-items: end;
+}
+.svg-image{
+    height: 100%;
+    width: 33%;
+}
+@media (max-width:960px) {
+    .svg-image{
+        display: none;
+    }
+}
+.possibilities{
+    text-align: center;
+    font-family: "Righteous", sans-serif;
+    height: 100%;
+}
+.row{
+    display: flex;
+    justify-content: center;
+}
+.btn{
+    height: 75px;
+    width: 150px;
+    background-color: #B1DD40;
+    margin: 50px;
+    border: 1px solid #B1DD40;
+    border-radius: 20px;
+    font-family: "Righteous", sans-serif;
+    color: black;
+    text-align: center;
+}
+
+.btn:hover{
+    background-color: #1e1e1e;
+}
+.btn:hover a{
+    color: #B1DD40;
+}
+
+.get-in-form{
+    height: 55%;
+    width: 250px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+}
+.get-in-form h2{
+    color: black;
+    font-family: "Righteous", sans-serif;
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+.in-touch{
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    width: 80%;
+}
+input[type=text], input[type=email], textarea{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+label{
+    color:black;
+    font-size: small;
+}
+.input-name{
+    width: 100px;
+    height: 30px;
+}
+.input-email{
+    width: 230px;
+    height: 30px;
+}
+textarea{
+    max-width: 230px;
+    min-width: 230px;
+    min-height: 150px;
+    max-height: 150px;
+}
+input[type=submit]{
+    height: 75px;
+    width: 100%;
+    background-color: #7FC1FF;
+    color:black;
+    border: 1px solid black;
+    border-radius: 20px;
+}
