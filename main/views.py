@@ -66,7 +66,7 @@ def time_page(request):
     }
     return render(request, 'pages/time.html', context)
 
-def edit_profile_page(request):
+def edit_profile(request):
     context = {
         'pagename': 'Редактирование профиля',
         'menu': get_menu_context(),
@@ -78,21 +78,16 @@ def edit_profile_page(request):
         'login': login
     }
     return render(request, 'pages/editprofile.html', context)
-    def edit_voting_page(request, id):
+
+def profile_page(request):
+    profile = Profile.objects.get(user=request.user)
     context = {
-
-        'oldpass': Profile.oldpass(),
-        'newpass': Profile.newpass(),
-        'email': Profile.email(),
-        'name': Profile.name(),
-        'surname': Profile.surname(),
-        'login': Profile.login()
+        'pagename': 'Профиль',
+        'menu': get_menu_context(),
+        'profile': profile,
+        'can_change': True
     }
-    if request.method == 'POST':
-        arr = Edit_Profile(request.POST)
-        pass
-    return render(request, 'pages/editprofile.html', context)
-
+    return render(request, 'pages/profile.html', context)
 class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'registration/registration.html'
@@ -132,18 +127,6 @@ class LoginUser(LoginView):
 def logoutUser(request):
     logout(request)
     return redirect('index')
-
-
-def profile_page(request):
-    profile = Profile.objects.get(user=request.user)
-    context = {
-        'pagename': 'Профиль',
-        'menu': get_menu_context(),
-        'profile': profile,
-        'can_change': True
-    }
-    return render(request, 'pages/profile.html', context)
-
 
 def profile_page_id(request, id):
     profile = Profile.objects.get(user=User.objects.get(id=id))

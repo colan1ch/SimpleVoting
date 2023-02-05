@@ -13,7 +13,11 @@ class Profile(models.Model):
     user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE)
     bio = models.CharField(max_length=100)
     logo_image = models.ImageField(upload_to=user_directory_path, null=True)
-
+    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
+    oldpass = models.CharField(max_length=50)
+    newpass = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
 
 class Voting(models.Model):
     title = models.CharField(max_length=100)
