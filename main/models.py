@@ -3,13 +3,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 
-class User(AbstractUser):
-    status = models.CharField(max_length=255)
-
-
-class UserSettings(models.Model):
-    user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE)
-
 class User(AbstractUser):  # переделываем стандартный класс User
     is_moderator = models.BooleanField(default=False)  # для дальнейшей реализации системы жалоб
 
@@ -32,4 +25,3 @@ class Vote(models.Model):  # при многовыборочном голосо�
     option = models.SmallIntegerField()  # индекс ответа в json массиве
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
     voting = models.ForeignKey(to=Voting, on_delete=models.CASCADE)
-

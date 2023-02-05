@@ -3,9 +3,8 @@ import sqlite3
 
 from django.shortcuts import render
 
-from models import Voting
-from models import Vote
-from forms import EditVotingForm
+from main.models import Voting, Vote
+from main.forms import Edit_Voting_Form
 
 
 def get_menu_context():
@@ -33,24 +32,25 @@ def time_page(request):
     }
     return render(request, 'pages/time.html', context)
 
+
 def edit_voting_page(request, id):
-    context = { # получение данных для изменения из бд
+    context = {  # получение данных для изменения из бд
         'title': Voting.title(id),  # заголовок
         'text': Voting.text(id),  # описание
         'type': Voting.type(id),  # тип голосования
         'options': Voting.options(id),  # (json) массив вариантов ответа
     }
-    if request.method == 'POST': # если введены изменения
-        arr = EditVotingForm(request.POST) # получение изменений
+    if request.method == 'POST':  # если введены изменения
+        arr = Edit_Voting_Form(request.POST)  # получение изменений
         if arr.is_valid():
             if arr.title:
-                context['title'] = arr.title, # редактирование названия, уже имеющееся заголовок
+                context['title'] = arr.title,  # редактирование названия, уже имеющееся заголовок
             if arr.text:
-                context['text'] = arr.text, # редактирование описания, уже имеющейся текст голосования
+                context['text'] = arr.text,  # редактирование описания, уже имеющейся текст голосования
             if arr.type:
-                context['type'] = arr.type, # редактирование типa голосования
+                context['type'] = arr.type,  # редактирование типa голосования
             if arr.options:
-                context['options'] = arr.options, # редактирование (json) массивa вариантов ответа
-    else: # если изменения отсутствуют
-        pass # ничего выполнять не требуется
+                context['options'] = arr.options,  # редактирование (json) массивa вариантов ответа
+    else:  # если изменения отсутствуют
+        pass  # ничего выполнять не требуется
     return render(request, 'pages/editvoting.html', context)
