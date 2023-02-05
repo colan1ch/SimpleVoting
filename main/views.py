@@ -42,16 +42,17 @@ def edit_profile_page(request):
     return render(request, 'pages/editprofile.html', context)
     def edit_voting_page(request, id):
     context = {  
-        'menu': get_menu_context(),
-        'oldpass': oldpass,
-        'newpass': newpass,
-        'email': email,
-        'name': name,
-        'surname': surname,
-        'login': login
+
+        'oldpass': Profile.oldpass(),
+        'newpass': Profile.newpass(),
+        'email': Profile.email(),
+        'name': Profile.name(),
+        'surname': Profile.surname(),
+        'login': Profile.login()
     }
     if request.method == 'POST':
-         pass 
+        arr = Edit_Profile(request.POST)
+        pass
     return render(request, 'pages/editprofile.html', context)
   
 
