@@ -40,4 +40,19 @@ def edit_profile_page(request):
         'login': login
     }
     return render(request, 'pages/editprofile.html', context)
+    def edit_voting_page(request, id):
+    context = {  
+        'menu': get_menu_context(),
+        'oldpass': oldpass,
+        'newpass': newpass,
+        'email': email,
+        'name': name,
+        'surname': surname,
+        'login': login
+    }
+    if request.method == 'POST':
+         pass 
+    return render(request, 'pages/editprofile.html', context)
+  
+
 
