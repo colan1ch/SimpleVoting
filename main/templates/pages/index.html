@@ -138,12 +138,12 @@
         <h1 style="font-size: 55px;">Try the Votico's possibilities</h1>
         <div class="buttons">
             <div class="row">
-                <button class="btn"><a href="#">watch <br> votings</a></button>
-                <button class="btn"><a href="#">create your voiting</a></button>
+                <button class="btn"><a href="/votings">watch <br> votings</a></button>
+                <button class="btn"><a href="/create_voting">create your voiting</a></button>
             </div>
             <div class="row">
-                <button class="btn"> <a href="#">create profile</a></button>
-                <button class="btn"> <a href="#">contact us</a></button>
+                <button class="btn"> <a href="/registration">create profile</a></button>
+                <button class="btn"> <a href="#contact-us">contact us</a></button>
             </div>
         </div>
         <div class="support">
@@ -154,14 +154,15 @@
     </div>
 </section>
 <section>
-    <div class="in-touch">
+    <div class="in-touch" id="contact-us">
         <div style="width: 100%;">
             <h2 style="color: #B1DD40;font-family: 'Righteous', sans-serif;">Contact us</h2>
             <div class="map-and-form">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12615.611675152306!2d-122.39268669482884!3d37.76887447004954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7f1a33f38ea7%3A0xe4941e6c1dc4022b!2s500%20Terry%20A%20Francois%20Blvd%2C%20San%20Francisco%2C%20CA%2094158%2C%20USA!5e0!3m2!1sen!2sru!4v1675508795233!5m2!1sen!2sru"
-                    width="550" height="491" style="filter:  invert(90%) hue-rotate(180deg); border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    width="550" height="491"
+                    style="filter:  invert(90%) hue-rotate(180deg); border:0; border-radius: 15px;" allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <div class="get-in-form">
                     <div style="margin: 0 auto;">
                         <h2>Get in Touch</h2>
@@ -173,21 +174,21 @@
                                         Firstname
                                     </label>
                                     <br>
-                                    <input class="input-name" type="text" >
+                                    <input class="input-name" type="text">
                                 </div>
                                 <div>
                                     <label>
                                         Lastname
                                     </label>
                                     <br>
-                                    <input class="input-name" type="text" >
+                                    <input class="input-name" type="text">
                                 </div>
                             </div>
                             <label>
                                 Email
                             </label>
                             <br>
-                            <input class="input-email" type="email" >
+                            <input class="input-email" type="email">
                             <br>
                             <label for="story">Your message:</label>
                             <textarea rows="5" cols="33"></textarea>
@@ -197,14 +198,31 @@
                     </div>
                 </div>
 
-               
+
             </div>
- <p style="color: #B1DD40;">
-                    500 Terry Francois St. San Francisco, CA 94158<br>
-                    info@mysite.com<br>
-                    Tel: 123-456-7890
-                </p>
+            <p style="color: #B1DD40;">
+                500 Terry Francois St. San Francisco, CA 94158<br>
+                info@mysite.com<br>
+                Tel: 123-456-7890
+            </p>
         </div>
     </div>
 </section>
+
+<script>
+    const anchors = document.querySelectorAll('a[href*="#"]')
+
+    for (let anchor of anchors) {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault()
+
+            const blockID = anchor.getAttribute('href').substr(1)
+
+            document.getElementById(blockID).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            })
+        })
+    }
+</script>
 {% endblock %}

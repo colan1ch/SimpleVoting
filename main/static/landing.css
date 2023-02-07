@@ -1,3 +1,7 @@
+body {
+    scroll-behavior: smooth;
+}
+
 main {
     height: 2600px;
 }
