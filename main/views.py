@@ -4,7 +4,7 @@ import sqlite3
 from django.shortcuts import render
 
 from main.models import Voting, Vote
-from main.forms import Edit_Voting_Form
+from main.forms import EditVotingForm
 
 
 def get_menu_context():
@@ -34,23 +34,50 @@ def time_page(request):
 
 
 def edit_voting_page(request, id):
-    context = {  # получение данных для изменения из бд
-        'title': Voting.title(id),  # заголовок
-        'text': Voting.text(id),  # описание
-        'type': Voting.type(id),  # тип голосования
-        'options': Voting.options(id),  # (json) массив вариантов ответа
-    }
+
+    conn = sqlite3.connect("0001.db") # подключение бд
+    curs = conn.cursor()
+
+    curs.execute("SELECT * FROM Voting WHERE id = ?", (id, )) # достаём ин-фу из бд
+    from_bd = curs.fetchone(id)
+
+    tmp_title = from_bd['title'] # ин-фу из бд записываем в переменные
+    tmp_text = from_bd['text']
+    tmp_type = from_bd['type']
+    tmp_options = from_bd['options']
+    tmp_user = from_bd['user']
+
     if request.method == 'POST':  # если введены изменения
-        arr = Edit_Voting_Form(request.POST)  # получение изменений
+        arr = EditVotingForm(request.POST)  # получение изменений
         if arr.is_valid():
-            if arr.title:
-                context['title'] = arr.title,  # редактирование названия, уже имеющееся заголовок
-            if arr.text:
-                context['text'] = arr.text,  # редактирование описания, уже имеющейся текст голосования
-            if arr.type:
-                context['type'] = arr.type,  # редактирование типa голосования
-            if arr.options:
-                context['options'] = arr.options,  # редактирование (json) массивa вариантов ответа
+            if arr['title']:
+                sql = """UPDATE Voting SET title = %s WHERE id = %s"""
+                curs.execute(sql, (arr['title'], id))
+                tmp_title = arr.title,  # редактирование названия
+            if arr['text']:
+                sql = """UPDATE Voting SET text = %s WHERE id = %s"""
+                curs.execute(sql, (arr['text'], id))
+                tmp_text = arr['text'],  # редактирование описания
+            if arr['type']:
+                sql = """UPDATE Voting SET type = %s WHERE id = %s"""
+                curs.execute(sql, (arr['type'], id))
+                tmp_type = arr['type'],  # редактирование типa голосования
+            if arr['options']:
+                sql = """UPDATE Voting SET options = %s WHERE id = %s"""
+                curs.execute(sql, (arr['options'], id))
+                tmp_options = arr['options'],  # редактирование (json) массивa вариантов ответа
+
     else:  # если изменения отсутствуют
         pass  # ничего выполнять не требуется
+
+    conn.close() # прекращаем работу с бд
+
+    context = {
+        'title': tmp_title,  # заголовок
+        'text': tmp_text,  # описание
+        'type': tmp_type,  # тип голосования
+        'options': tmp_options,  # (json) массив вариантов ответа
+        'user' : tmp_user,
+    }
+
     return render(request, 'pages/editvoting.html', context)

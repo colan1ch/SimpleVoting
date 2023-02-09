@@ -1,7 +1,7 @@
 from django import forms
 
 
-class Edit_Voting_Form(forms.Form):
+class EditVotingForm(forms.Form):
     TYPES = ['first', 'second', 'third']
     title = forms.CharField(required=True)
     text = forms.CharField()
