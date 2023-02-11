@@ -3,6 +3,9 @@
 {% load index %}
 {% block extra_css %}
 <style type="text/css">
+a{
+  text-decoration:none;
+}
 footer {
  position:relative;
  margin-top:100px;
@@ -208,6 +211,49 @@ main{
  progress{
   background-color: #b1dd40;
  }
+  .buttonEdit {
+ min-width: 50px;
+ width: 175px;
+ display:block;
+ margin-top:15px;
+ text-align: center;
+ font-family: inherit;
+ appearance: none;
+ border: 0;
+ border-radius: 5px;
+ background: #b1dd40;
+ color: #fff;
+ padding: 8px 16px;
+ cursor: pointer;
+ font-family: 'Righteous';
+ font-style: normal;
+ font-weight: 400;
+ font-size: 17.5px;
+ margin-bottom: 20px;
+ margin-right:20px;
+ }
+
+  .buttonDelete {
+ margin-left:20px;
+ min-width: 50px;
+ width: 175px;
+ display:block;
+ margin-top:15px;
+ text-align: center;
+ font-family: inherit;
+ appearance: none;
+ border: 0;
+ border-radius: 5px;
+ background: red;
+ color: #fff;
+ padding: 8px 16px;
+ cursor: pointer;
+ font-family: 'Righteous';
+ font-style: normal;
+ font-weight: 400;
+ font-size: 17.5px;
+ margin-bottom: 20px;
+ }
 
 
 </style>
@@ -240,6 +286,17 @@ main{
         {% endfor %}
       </div>
       <input class="buttonSubmitVote" type="submit" value="Submit">
+      </form>
+      {% if creater %}
+      <div style="display:flex;justify-content:center;">
+        <div>
+          <a href="/edit_voting/{{voting.id}}"><button class="buttonEdit">Edit</button></a>
+        </div>
+        <div>
+          <a href="/delete_voting/{{voting.id}}"><button class="buttonDelete">Delete</button></a>
+        </div>
+      </div>
+      {% endif %}
       {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -252,7 +309,6 @@ main{
       </ul>
       {% endif %}
   </div>
-  </form>
   <form action="/add_comment/{{voting.id}}" method="post">
     {% csrf_token %}
     <div name="rating" id="rating">

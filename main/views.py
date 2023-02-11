@@ -199,7 +199,8 @@ def voting_page(request,id):
         'voting': voting,
         'options': options,
         'content': content,
-        'comments': comments
+        'comments': comments,
+        'creater': voting.user == request.user
         }
     print(content)
     return render(request, 'voting.html', context)
@@ -267,3 +268,10 @@ def edit_voting_page(request, id):
             return render(request, 'edit_voting.html', context)
     else:
         raise PermissionDenied()
+
+@login_required(login_url='/login/')
+def delete_voting(request,id):
+    voting = get_object_or_404(Voting, id=id)
+    if request.user == voting.user:
+        voting.delete()
+    return redirect('/votings')
