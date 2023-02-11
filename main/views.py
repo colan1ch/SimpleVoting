@@ -192,6 +192,7 @@ def voting_page(request,id):
     for i in range(1,len(options)+1):
         if Vote.objects.filter(voting=voting).count() != 0:
             content[i]= int(Vote.objects.filter(voting=voting,option=i).count()/Vote.objects.filter(voting=voting).count()*100)
+            content[i] = '{:>4}'.format(content[i])
         else:
             content[i] = 0
     context = {
@@ -200,6 +201,7 @@ def voting_page(request,id):
         'content': content,
         'comments': comments
         }
+    print(content)
     return render(request, 'voting.html', context)
 
 def add_comment(request,id):
