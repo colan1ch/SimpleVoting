@@ -1,7 +1,9 @@
-{% load static %}
 {% extends 'base.html' %}
-<body>
+{% load static %}
+{% block content %}
+<div>
 <form>
+    <div>
     <select>
         <option value="None">-Выберете причину-</option>
         <option value="spam">Спам голосованиями</option>
@@ -9,9 +11,13 @@
         <option value="nsfw">Публикация неприличного контента</option>
         <option value="local">Слив личных данных</option>
     </select>
+    </div>
+    <div>
     <textarea></textarea>
-    <button type="submit">Отправить</button>
+    </div>
+    <input type="submit" value="Send">
 </form>
-</body>
+</div>
+{% endblock %}
 
 
