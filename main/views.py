@@ -253,11 +253,11 @@ def edit_voting_page(request, id):
                 messages.add_message(request, messages.SUCCESS, 'Editing success')
             else:
                 messages.add_message(request, messages.ERROR, 'Editing error')
-            return redirect(f'voting/{voting.id}')
+            return redirect(f'/voting/{voting.id}')
 
         else:
             context['voting'] = voting
             context['options'] = json.loads(voting.options)
-            return render(request, 'pages/editvoting.html', context)
+            return render(request, 'edit_voting.html', context)
     else:
         raise PermissionDenied()

@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-
+{% load static%}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'edit_voting.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="flex-container">
@@ -22,7 +25,7 @@
                     </select></div>
                 <div id="Options">
                     <p>Options:</p>
-                    {% for i in voting.options%}
+                    {% for i in options%}
                     <div id="div_{{forloop.counter}}" class="option"><input type="text" name="options" value="{{i}}">
                         <a id="{{forloop.counter}}" onclick="remove_item({{forloop.counter}})" style="margin-left: 5px;">❌</a>
                     </div>
