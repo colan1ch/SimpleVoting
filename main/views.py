@@ -47,6 +47,9 @@ def check_param(param):
             return False
     return True
 
+def report_page(request):
+    return render(request,'pages/Report.html')
+
 
 def index_page(request):
     context = {
