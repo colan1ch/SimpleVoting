@@ -1,7 +1,19 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import ModelForm
+
 from .models import *
+
+class UserLogoForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['logo_image']
+
+class UserBioForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio']
 
 class RegisterUserForm(UserCreationForm):  # класс формы регистрации
     username = forms.CharField(label="Login",widget=forms.TextInput(attrs={'placeholder': 'Enter your login'}))

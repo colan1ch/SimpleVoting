@@ -1,5 +1,8 @@
 import datetime
-from django.contrib.auth import login, logout
+import os.path
+
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
@@ -275,3 +278,51 @@ def delete_voting(request,id):
     if request.user == voting.user:
         voting.delete()
     return redirect('/votings')
+
+@login_required(login_url='/login/')
+def edit_profile_page(request):
+    context = {
+        'imageform': UserLogoForm(),
+        'passwordchange': PasswordChangeForm(request.user),
+        'biochange': UserBioForm(),
+    }
+    return render(request, 'edit_profile.html',context)
+
+@login_required(login_url='/login/')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    return redirect('/edit_profile')
+
+@login_required(login_url='/login/')
+def change_bio(request):
+    if request.method == 'POST':
+        form = UserBioForm(request.POST,instance=Profile.objects.get(user=request.user))
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your bio was successfully updated!')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    return redirect('/edit_profile')
+
+@login_required(login_url='/login/')
+def change_logoimage(request):
+    if request.method == 'POST':
+        profile = Profile.objects.get(user=request.user)
+        form = UserLogoForm(request.POST,request.FILES, instance=profile)
+        print(request.POST)
+        print(request.FILES)
+        if form.is_valid():
+            if os.path.exists(profile.logo_image.path):
+                os.remove(profile.logo_image.path)
+            form.save()
+            messages.success(request, 'Your logo was successfully updated!')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    return redirect('/edit_profile')
