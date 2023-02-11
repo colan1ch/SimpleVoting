@@ -8,7 +8,6 @@ class User(AbstractUser):  # переделываем стандартный к�
 def user_directory_path(instance,filename):
     return 'users/user_{0}/{1}'.format(instance.user.id, 'logo'+filename[filename.find('.'):])
 
-
 class Profile(models.Model):
     user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE)
     bio = models.CharField(max_length=100)
