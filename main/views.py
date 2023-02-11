@@ -240,7 +240,7 @@ def add_vote(request,id):
 
 @login_required()
 def edit_voting_page(request, id):
-    voting = voting = get_object_or_404(Voting, id=id)
+    voting = get_object_or_404(Voting, id=id)
     context = {}
     if request.user == voting.user:
         if request.method == 'POST':
@@ -250,8 +250,12 @@ def edit_voting_page(request, id):
             op = int(params['type'][0])
             options = json.dumps(params['options'])
             if check_param(title) and check_param(text) and check_list_param(params['options']) and check_type(op):
-                voting = Voting(title=title, text=text, type=op, options=options, user=request.user)
+                voting.title = title
+                voting.text = text
+                voting.type = op
+                voting.options = options
                 voting.save()
+                Vote.objects.filter(voting=voting).delete()
                 messages.add_message(request, messages.SUCCESS, 'Editing success')
             else:
                 messages.add_message(request, messages.ERROR, 'Editing error')
