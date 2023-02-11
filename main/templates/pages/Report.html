@@ -1,17 +1,99 @@
 {% load static %}
 {% extends 'base.html' %}
 <body>
-<form>
-    <select>
-        <option value="None">-Выберете причину-</option>
-        <option value="spam">Спам голосованиями</option>
-        <option value="offense">Оскорбление личности</option>
-        <option value="nsfw">Публикация неприличного контента</option>
-        <option value="local">Слив личных данных</option>
-    </select>
-    <textarea></textarea>
-    <button type="submit">Отправить</button>
-</form>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&family=Righteous&display=swap');
+
+html {
+    height: 100%;
+}
+
+body {
+    display:block;
+    align-items: center;
+    justify-content: center;
+    background-color: #393939;
+    color: #bbb;
+    margin: 0;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    font-family: "Inter", sans-serif;
+}
+
+.report{
+    position: absolute;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    background-color: #292929;
+    border-radius: 20px;
+    width: auto;
+    margin: 30px;
+    padding: 20px 60px 20px 30px;
+}
+
+.sel{
+    position: absolute;
+    background: #393939;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    color: white;
+    overflow: hidden;
+    resize: none;
+    margin: 0px 0px 5px 20px;
+}
+
+.txt{
+    width: 400px;
+    height: 200px;
+    background: #393939;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    color: white;
+    overflow: hidden;
+    resize: none;
+    margin: 20px;
+}
+
+.btn{
+    height: 50px;
+    width: 125px;
+    background-color: #B1DD40;
+    margin-left: 30px;
+    border: 1px solid #B1DD40;
+    border-radius: 20px;
+    font-family: "Righteous", sans-serif;
+    color: black;
+    text-align: center;
+}
+
+.fract{
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+<body>
+    <div class="fract">
+        <form class="report" id="rep">
+            <select class="sel" form="rep" >
+                <option value="none">-Выберете причину-</option>
+                <option value="spam">Спам голосованиями</option>
+                <option value="offense">Оскорбление личности</option>
+                <option value="nsfw">Публикация неприличного контента</option>
+                <option value="local">Слив личных данных</option>
+            </select>
+            <textarea class="txt" form="rep"></textarea>
+            <button class="btn" type="submit">Отправить</button>
+        </form>
+    </div>
+</body>
 </body>
 
 
