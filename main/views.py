@@ -207,3 +207,15 @@ def add_vote(request,id):
     else:
         messages.add_message(request, messages.ERROR, "You must be logged in")
     return redirect(f'/voting/{id}')
+def edit_voting_page(request):
+    context= {
+        'page_css':'edit_voting.css',
+        'voting':{
+            'id':21,
+            'title': 'Some title',
+            'text': 'Some text',
+            'type': 1,
+            'options': ['1 option','2 option','3 option']
+        }
+    }
+    return render(request,'edit_voting.html',context=context)
