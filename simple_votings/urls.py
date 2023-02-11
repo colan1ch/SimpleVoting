@@ -17,23 +17,24 @@ from django.contrib import admin
 from django.urls import path
 
 from main import views
-from django.contrib.auth import views as auth_views
 
 from main.views import get_menu_context
+from django.conf import settings
+from django.conf.urls.static import static
+from main import views as main_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
     path('time/', views.time_page, name='time'),
-    path(
-        'login/',
-        auth_views.LoginView.as_view(
-            extra_context={
-                'menu': get_menu_context(),
-                'pagename': 'Авторизация'
-            }
-        ),
-        name='login'
-    ),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout')
-]
+    path('login/',views.LoginUser.as_view(), name='login'),
+    path('logout/', views.logoutUser, name='logout'),
+    path('registration/', views.RegisterUser.as_view(), name='registration'),
+    path('profile/', views.profile_page, name='profile'),
+    path('profile/<int:id>', views.profile_page_id),
+    path('votings/', views.votings_page, name='votings'),
+    path('voting/<int:id>', views.voting_page, name='voting'),
+    path('add_vote/<int:id>', views.add_vote, name='add_vote'),
+    path('add_comment/<int:id>', views.add_comment, name='add_comment'),
+    path('create_voting/', main_views.create_voting_page, name='create_voting')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
