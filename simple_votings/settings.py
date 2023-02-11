@@ -23,13 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Эта настройка отключена в шаблоне, чтобы все проекты обязательно указывали свой индивидуальный SECRET_KEY.
 # Генерация делается в консоли Python при помощи команд:
-#   from django.core.management.utils import get_random_secret_key
-#   get_random_secret_key()
+from django.core.management.utils import get_random_secret_key
+
 # Далее полученное значение подставляется в соответствующую переменную
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'k7&he65l4%*gz1t#7c_y0=@a*%wz%+1e!9poq$9rl_h515=0q2'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

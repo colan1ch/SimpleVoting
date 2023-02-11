@@ -23,6 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from main import views as main_views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
@@ -36,5 +37,6 @@ urlpatterns = [
     path('voting/<int:id>', views.voting_page, name='voting'),
     path('add_vote/<int:id>', views.add_vote, name='add_vote'),
     path('add_comment/<int:id>', views.add_comment, name='add_comment'),
-    path('create_voting/', main_views.create_voting_page, name='create_voting')
+    path('create_voting/', main_views.create_voting_page, name='create_voting'),
+    path('edit_voting/<int:id>', views.edit_voting_page, name='edit_voting')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
