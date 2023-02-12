@@ -11,24 +11,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-def change_password(request):
-  user = User.objects.get(id=request.user.id)
-  new_password = request.POST['new_password']
-  user.set_password(new_password)
-  user.save()
-
-def name(request):
-  user = User.objects.get(id=request.user.id)
-  name = request.POST['name']
-  user.set_password(name)
-  user.save()
-
-def surname(request):
-  user = User.objects.get(id=request.user.id)
-  surname = request.POST['surname']
-  user.set_password(surname)
-  user.save()
-
 def get_menu_context():
     return [
         {'url_name': 'index', 'name': 'Главная'},
