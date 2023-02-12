@@ -1,6 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+.txt{
+    width: 400px;
+    height: 200px;
+    background: #393939;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    color: white;
+    overflow: hidden;
+    resize: none;
+    margin: 20px;
+}
+.btn{
+    background-color: #B1DD40;
+    border: 1px solid #B1DD40;
+    border-radius: 20px;
+    font-family: "Righteous", sans-serif;
+    color: black;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    margin-top: 5px;
+}
+input[type=text],input[type=password],input[type=email]{
+  background: #292929;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  color: white;
+  overflow: hidden;
+  resize: none;
+  margin: 20px;
+}
+.usercard{
+  margin: 0px 0px 0px 10px;
+}
+</style>
 <div class="usercard">
     <h1 class="login">{{request.user.username}} Settings</h1>
       <div>
@@ -8,7 +45,7 @@
         <form action="/new_logo/" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <label>New logo:</label>{{imageform.logo_image}}<br>
-          <input type="submit" value="Save">
+          <input type="submit" value="Save" class="btn">
         </form>
       <div>
         <div>
@@ -18,7 +55,7 @@
         <label>Old password:</label>{{passwordchange.old_password}}<br>
         <label>New password:</label>{{passwordchange.new_password1}}<br>
         <label>Again new password:</label>{{passwordchange.new_password2}}<br>
-          <input type="submit" value="Save">
+          <input type="submit" value="Save" class="btn">
         </form>
       <div>
         <div>
@@ -26,7 +63,7 @@
         <form action="/new_bio/" method="POST">
           {% csrf_token %}
         <label>New bio:</label>{{biochange.bio}}<br>
-          <input type="submit" value="Save">
+          <input type="submit" value="Save" class="btn">
         </form>
       <div>
         {% if messages %}
