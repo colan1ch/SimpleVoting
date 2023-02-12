@@ -12,7 +12,7 @@
             <h1>We make<br>voting<br> easier</h1>
         </div>
         <div class="svg-image">
-           <svg width="90%" height="90%" viewBox="0 0 571 394" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="90%" height="90%" viewBox="0 0 571 394" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_f_2_703)">
                     <rect width="60.8252" height="60.8252"
                         transform="matrix(0.888071 -0.459706 0.888071 0.459706 103.145 292)" fill="#B1DD40"
@@ -154,7 +154,7 @@
             <h2 style="color: #B1DD40;font-family: 'Righteous', sans-serif;">Contact us</h2>
             <div class="map-and-form">
                 <iframe
-                    src = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1118.086044740726!2d37.7180862!3d55.9117164!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b531085aaa8c05%3A0xccc2897d05a95151!2sMytischinskaya%20programmers%20School!5e0!3m2!1sen!2sru!4v1676139460525!5m2!1sen!2sru"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1118.086044740726!2d37.7180862!3d55.9117164!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b531085aaa8c05%3A0xccc2897d05a95151!2sMytischinskaya%20programmers%20School!5e0!3m2!1sen!2sru!4v1676139460525!5m2!1sen!2sru"
                     width="550" height="491"
                     style="filter:  invert(90%) hue-rotate(180deg); border:0; border-radius: 15px;" allowfullscreen=""
                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -195,25 +195,30 @@
             </div>
             <p style="color: #B1DD40;">
                 Юбилейная ул., 13, корпус 2, Мытищи, Московская обл., 141021<br>
-                informatics.ru<br>
-                Tel: 84951506432
+                <a style="color: #B1DD40;" href="https://informatics.ru/">informatics.ru</a><br>
+                Tel: +7 (495) 150-64-32
             </p>
 </section>
 
 <script>
-    const anchors = document.querySelectorAll('a[href*="#"]')
+    window.addEventListener('load', function () {
+        let anchors = document.querySelectorAll('a[href*="#"]');
+        for (let anchor of anchors) {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault()
 
-    for (let anchor of anchors) {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault()
+                let blockID = anchor.getAttribute('href').substr(1);
 
-            const blockID = anchor.getAttribute('href').substr(1)
+                if (blockID[0] == '#')
+                    blockID = blockID.substr(1);
 
-            document.getElementById(blockID).scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+                document.getElementById(blockID).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
             })
-        })
-    }
+        }
+    })
+
 </script>
 {% endblock %}
