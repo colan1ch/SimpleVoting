@@ -209,7 +209,7 @@ main{
  height:50px;
  }
  progress{
-  background-color: #b1dd40;
+  background-color: #3a3a3a;
  }
   .buttonEdit {
  min-width: 50px;
@@ -275,7 +275,7 @@ main{
         {% for option in options %}
         <div class="option">
           <div>
-            <input type="radio" value="{{ forloop.counter }}" name="option" class="radioBtn">
+            <input type="{% if voting.type == 1%}radio{% else %}checkbox{% endif %}" value="{{ forloop.counter }}" name="option" class="radioBtn">
             <label class="labelRadio">{{ option }}</label>
           </div>
           <div style="display:flex;vertical-align:center;">
